@@ -8,6 +8,8 @@ import re
 
 import urllib.request
 from pathlib import Path
+
+# --- 폰트 파일 준비(없으면 다운로드) ---
 FONT_FILE = Path("assets/NanumGothic.ttf")
 if not FONT_FILE.exists():
     FONT_FILE.parent.mkdir(parents=True, exist_ok=True)
@@ -16,14 +18,19 @@ if not FONT_FILE.exists():
         FONT_FILE.as_posix()
     )
 
-import seaborn as sns
-sns.set_theme(style="whitegrid")
-sns.set_theme(style="whitegrid", rc={"font.family": "NanumGothic",
-                                     "axes.unicode_minus": False})
-
+# --- matplotlib에 폰트 등록 + Seaborn에 적용 ---
 import matplotlib.pyplot as plt
-plt.rcParams["font.family"] = "NanumGothic"
+import matplotlib.font_manager as fm
+import seaborn as sns
+
+fm.fontManager.addfont(FONT_FILE.as_posix())          # ① 폰트 등록
+plt.rcParams["font.family"] = "NanumGothic"           # ② Matplotlib 기본 폰트
 plt.rcParams["axes.unicode_minus"] = False
+
+sns.set_theme(                                         # ③ Seaborn 테마/폰트 한번에
+    style="whitegrid",
+    rc={"font.family": "NanumGothic", "axes.unicode_minus": False}
+)
 
 # 2) 페이지 기본 설정
 st.set_page_config(page_title = "오늘 뭐먹지? - 건강 급식 가이드",
