@@ -5,6 +5,17 @@ from datetime import date
 from datetime import timedelta
 import requests
 import re
+
+import urllib.request
+from pathlib import Path
+FONT_FILE = Path("assets/NanumGothic.ttf")
+if not FONT_FILE.exists():
+    FONT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    urllib.request.urlretrieve(
+        "https://github.com/google/fonts/raw/main/ofl/nanumgothic/NanumGothic-Regular.ttf",
+        FONT_FILE.as_posix()
+    )
+
 import seaborn as sns
 sns.set_theme(style="whitegrid")
 sns.set_theme(style="whitegrid", rc={"font.family": "NanumGothic",
