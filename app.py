@@ -7,6 +7,8 @@ import requests
 import re
 import seaborn as sns
 sns.set_theme(style="whitegrid")
+sns.set_theme(style="whitegrid", rc={"font.family": "NanumGothic",
+                                     "axes.unicode_minus": False})
 
 import matplotlib.pyplot as plt
 plt.rcParams["font.family"] = "NanumGothic"
@@ -291,8 +293,6 @@ else:
                 data.append({"성분": label_map[token], "값(g)": val})
 
         if data:
-            import matplotlib.pyplot as plt
-
             df_macro = pd.DataFrame(data)
 
             fig, ax = plt.subplots(figsize=(6, 4))
